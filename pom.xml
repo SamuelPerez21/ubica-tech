@@ -11,9 +11,9 @@
   ~ Copyright (c) 2017 by softserveinc (Yaroslav Zhyravov).
   -->
 
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+         xmlns="https://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 	<groupId>com.softserveinc</groupId>
 	<artifactId>geo-citizen</artifactId>
@@ -34,12 +34,12 @@
         <springframework.security.jwt.version>1.0.8.RELEASE</springframework.security.jwt.version>
         <springframework.security.oauth2.version>2.2.1.RELEASE</springframework.security.oauth2.version>
 	    <springframework.social.version>1.1.4.RELEASE</springframework.social.version>
-	    <springframework.social.facebook.version>3.0.0.M3</springframework.social.facebook.version>
+	    <springframework.social.facebook.version>2.0.3 RELEASE</springframework.social.facebook.version>
 	    <springframework.social.google.version>1.0.0.RELEASE</springframework.social.google.version>
         <jjwt.version>0.9.0</jjwt.version>
         <hibernate.version>5.2.12.Final</hibernate.version>
         <hibernate.validator.version>6.0.6.Final</hibernate.validator.version>
-        <postgresql.connector.version>42.1.4</postgresql.connector.version>
+        <postgresql.connector.version>42.7.5</postgresql.connector.version>
         <servlet-api.version>3.0.1</servlet-api.version>
         <jackson.version>2.9.3</jackson.version>
         <slf4j.version>1.7.25</slf4j.version>
@@ -176,7 +176,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate.validator.version}</version>
         </dependency>
@@ -187,16 +187,10 @@
             <version>${postgresql.connector.version}</version>
         </dependency>
 
-	<dependency>
-    	    <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.2.5</version>
-        </dependency>
-
         <!--Servlet API-->
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>javax.servlet-api</artifactId>
             <version>${servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -498,6 +492,7 @@
 	        <plugin>
 		        <groupId>org.apache.maven.plugins</groupId>
 		        <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
 		        <configuration>
 			        <failOnMissingWebXml>false</failOnMissingWebXml>
 		        </configuration>
@@ -521,20 +516,16 @@
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-
-            <plugin>
                 <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>${liquibase.version}</version>
-                <configuration>
-                    <propertyFile>src/main/resources/application.properties</propertyFile>
-                </configuration>
+               <artifactId>liquibase-maven-plugin</artifactId>
+               <version>${liquibase.version}</version>
+               <configuration>
+                   <propertyFile>src/main/resources/application.properties</propertyFile>
+                   <url>${env.DB_URL}</url>
+                   <username>${env.DB_USERNAME}</username>
+                   <password>${env.DB_PASSWORD}</password>
+              
+               </configuration>
 
                 <dependencies>
                     <dependency>
@@ -584,11 +575,11 @@
         <repository>
             <id>org.springframework.maven.milestone</id>
             <name>Spring Maven Milestone Repository</name>
-            <url>http://repo.spring.io/milestone</url>
+            <url>https://repo.spring.io/milestone</url>
         </repository>
         <repository>
             <id>public</id>
-            <url>http://maven.nuxeo.org/nexus/content/groups/public</url>
+            <url>https://maven.nuxeo.org/nexus/content/groups/public</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -599,7 +590,7 @@
 
         <repository>
             <id>public-snapshot</id>
-            <url>http://maven.nuxeo.org/nexus/content/groups/public-snapshot</url>
+            <url>https://maven.nuxeo.org/nexus/content/groups/public-snapshot</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -613,19 +604,19 @@
         <repository>
             <id>spring-milestone</id>
             <name>Spring Maven MILESTONE Repository</name>
-            <url>http://repo.spring.io/libs-milestone</url>
+            <url>https://repo.spring.io/libs-milestone</url>
         </repository>
 </repositories>
 <distributionManagement>
     <repository>
       <id>nexus</id>
       <name>Releases</name>
-      <url>http://35.188.29.52:8081/repository/maven-releases</url>
+      <url>https://35.188.29.52:8081/repository/maven-releases</url>
     </repository>
     <snapshotRepository>
       <id>nexus</id>
       <name>Snapshot</name>
-      <url>http://35.188.29.52:8081/repository/maven-snapshots</url>
+      <url>https://35.188.29.52:8081/repository/maven-snapshots</url>
     </snapshotRepository>
   </distributionManagement>
 </project>
