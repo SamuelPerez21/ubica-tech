@@ -3,10 +3,15 @@
     <md-button class="md-icon-button" @click="backToMap" v-if="showBack">
       <md-icon>arrow_back</md-icon>
     </md-button>
+    <img src="./static/logo_main.png" alt="UbicaTech Logo" class="logo">
     <span class="md-title">{{$t('label.projectTitle')}}</span>
   </div>
 
   <div class="md-toolbar-section-end">
+    <md-button class="md-primary" :href="'https://github.com/SamuelPerez21/ubica-tech'" target="_blank">
+      <md-icon>code</md-icon>
+    </md-button>
+    
     <md-button to="/auth" v-if="!user">
       {{ $t('button.login') }}
     </md-button>
