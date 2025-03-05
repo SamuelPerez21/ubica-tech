@@ -1,1 +1,23 @@
+# Maven 
+target/
+build/
+
+# JAR files
+*.jar
+*.war
+
+# Log files
+*.log
+
+# Environment variables files
 .env
+.env.local
+.env.*.local
+
+# NPM 
+node_modules/
+
+# Gradle specific
+.gradle/
+build/
+

@@ -1,12 +1,14 @@
 #map {
   margin: auto;
-  width:  100%;
-  height: 100%;
+  width: 100%;
+  height: 80vh;
   color: #000000;
 }
+
 #root {
   height: 100%;
 }
+
 .modal {
   display: none;
   position: fixed;
@@ -22,6 +24,7 @@
   display: table-cell;
   vertical-align: middle;
 }
+
 .modal-content {
   margin: 0 auto;
   width: 90%;
@@ -31,15 +34,15 @@
 
 @media (min-width: 40em) {
   .modal-content {
-	margin: 0 auto;
-	width: 50%;
+    margin: 0 auto;
+    width: 50%;
   }
 }
 
 @media (min-width: 75em) {
   .modal-content {
-	margin: 0 auto;
-	width: 25%;
+    margin: 0 auto;
+    width: 25%;
   }
 }
 
@@ -72,7 +75,7 @@ a {
 }
 
 .logo {
-  margin-top:20px;
+  margin-top: 20px;
 }
 
 .issuesByMarker {
