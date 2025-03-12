@@ -3,10 +3,14 @@
 ## Project Overview
 UbicaTech is a modernized version of the legacy Geocitizen project, designed to enhance citizen engagement through geolocation-based services. Our team is working on setting up, documenting, and improving the DevOps pipeline to ensure seamless deployment and maintainability.
 
-## Team Members
+## Team Founders
 - [**Samuel Perez**](https://github.com/SamuelPerez21)
 - [**Valentin Salgado**](https://github.com/vasalgadog)
 - [**Maria-Fernanda Villalobos**](https://github.com/MariferVL)
+
+## Other Collaborators
+- [**Angelo Orellana**](https://github.com/Faithgel)
+- [**Vicente Gonzalez**](https://github.com/Vicente-G)
 
 ## Project Goals
 - Analyze and document the existing codebase and infrastructure.
