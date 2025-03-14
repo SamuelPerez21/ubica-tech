@@ -1,10 +1,10 @@
 #!/bin/bash
 
 DB_IMAGE="postgres10"
-BACKEND_IMAGE="geocitizen"
+BACKEND_IMAGE="webapp" #"geocitizen"
 FRONTEND_IMAGE="geocitizen-front"
 DB_DFILE="./docker/psql10.Dockerfile"
-BACKEND_DFILE="./docker/backend_lite.Dockerfile"
+BACKEND_DFILE="./docker/webapp_lite.Dockerfile" #"./docker/backend_lite.Dockerfile"
 FRONTEND_DFILE="./docker/frontend_lite.Dockerfile"
 
 CUSTOM_URL=0
@@ -35,7 +35,7 @@ done
 
 while getopts "Rh:n:bsi" opt; do
     case $opt in
-        R)  ./docker-stop.sh --all;;
+        R)  ./dstop.sh --all;;
         h)
             CUSTOM_URL=1
             PG_URL=$OPTARG
@@ -79,8 +79,9 @@ build_image_if_not_exists() {
 }
 
 check_db_running() {
-    if [[ $CUSTOM_URL = 0 ]]; then
+    if [[ $CUSTOM_URL = 1 ]]; then
         echo -e "Custom database URL provided. Skipping database check..."
+        return 0
     fi
     if [[ "$(docker ps -q -f name=${DB_IMAGE}v1)" ]]; then
         echo -e "Database container is already running. Skipping..."
@@ -138,6 +139,7 @@ else
         echo -ne "\nStarting Frontend container with hash="
         docker run -d -p 8081:8081 --name ${FRONTEND_IMAGE}v1 $FRONTEND_IMAGE | head -c 12
         check_success $? "Error starting Frontend container! 💥 Exiting..."
+    fi
 fi
 echo -e "\nFrontend is available on http://localhost:$FRONT_PORT/#/"
 
