@@ -1,11 +1,16 @@
 PROPS_FILE='./src/main/resources/application.properties'
 MAVEN_WAR_PLUGIN='<plugin><groupId>org.apache.maven.plugins<\/groupId><artifactId>maven-war-plugin<\/artifactId><configuration><failOnMissingWebXml>false<\/failOnMissingWebXml><\/configuration><\/plugin>'
 VERSIONED_WAR_PLUGIN='<plugin><groupId>org.apache.maven.plugins<\/groupId><artifactId>maven-war-plugin<\/artifactId><version>3.4.0<\/version><configuration><failOnMissingWebXml>false<\/failOnMissingWebXml><\/configuration><\/plugin>'
+POSTGRESQL_DEPENDENCY='<dependency><groupId>org.postgresql<\/groupId><artifactId>postgresql<\/artifactId><version>42.2.5<\/version><\/dependency>'
 SPRING_TEST_DEPENDENCY='<dependency><groupId>org.springframework<\/groupId><artifactId>spring-test<\/artifactId><version>4.3.13.RELEASE<\/version><scope>test<\/scope><\/dependency>'
 MILESTONE_REPO='<repository><id>spring-milestones-fb<\/id><name>FB Milestones Repo<\/name><url>https:\/\/repo.spring.io\/milestone\/<\/url><\/repository>'
 
 # Set the database URLs on application.properties
 sed -e "s|jdbc:postgresql://localhost:5432/ss_demo_1|$1|g" -i $PROPS_FILE
+sed -e "s|jdbc:postgresql://35\.204\.28\.238:5432/ss_demo_1|$1|g" -i $PROPS_FILE
+# Set frontend URLs on application.properties
+#sed -e "s|http://localhost:8081/#|http://localhost:8080/citizen/#|g" -i $PROPS_FILE
+#echo 'front-end.url=http://localhost:8080/citizen/' >> $PROPS_FILE
 
 # Remove whitespaces and newlines for easier parsing
 sed -e ':a;N;$!ba;s/\n//g' -i ./pom.xml
@@ -20,6 +25,8 @@ sed '0,/org\.hibernate\.validator/s//org\.hibernate/' -i ./pom.xml
 sed "0,/$MAVEN_WAR_PLUGIN/s///" -i ./pom.xml
 # Fix the maven-war-plugin issue
 sed -e "s/$MAVEN_WAR_PLUGIN/$VERSIONED_WAR_PLUGIN/g" -i ./pom.xml
+# Remove the duplicate postgresql dependency
+sed -e "s/$POSTGRESQL_DEPENDENCY//g" -i ./pom.xml
 # Remove the duplicate spring-test dependency
 sed -e "s/$SPRING_TEST_DEPENDENCY//g" -i ./pom.xml
 # Fix http to https for secured repos
