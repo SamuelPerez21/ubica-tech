@@ -33,6 +33,14 @@ RUN git clone --depth 1 --single-branch \
     --branch master \
     https://github.com/nromanen/Ch-058
 
+# Frontend setup
+WORKDIR /Ch-058/front-end
+RUN nvm install 12
+COPY ./docker/frontend-config ./
+RUN npm install -D
+RUN npm run build
+RUN cp -r dist/** /Ch-058/src/main/webapp/
+
 # Backend setup
 WORKDIR /Ch-058
 ARG DATABASE_URL
@@ -41,12 +49,6 @@ RUN chmod +x config-fixes.sh && ./config-fixes.sh $DATABASE_URL
 RUN mvn clean install -DskipTests
 RUN mvn liquibase:update -Dliquibase.promptOnNonLocalDatabase=false
 RUN cp target/*.war /opt/tomcat/apache-tomcat-9.0.100/webapps/
-
-# Frontend setup
-WORKDIR /Ch-058/front-end
-RUN nvm install 12
-COPY ./docker/frontend-config ./
-RUN npm install -D
 
 ENV HOST=0.0.0.0
 ENV PORT=8080
